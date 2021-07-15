@@ -1,8 +1,5 @@
 package br.com.luaazul.javagotchi.controller.javagotchi;
 
-import java.util.Date;
-
-import javax.persistence.EntityManager;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.slf4j.Logger;
@@ -11,9 +8,7 @@ import org.slf4j.LoggerFactory;
 import br.com.luaazul.javagotchi.model.Usuario;
 import br.com.luaazul.javagotchi.model.tamagotchi.BichoVirtual;
 
-import br.com.luaazul.javagotchi.dao.model.RegistroDAO;
 import br.com.luaazul.javagotchi.dao.javagotchi.BichoVirtualDAO;
-import br.com.luaazul.javagotchi.model.Registro;
 
 public class BichoVirtualController {
 	
@@ -26,6 +21,21 @@ public class BichoVirtualController {
 		bichoVirtualDAO = new BichoVirtualDAO();
 	}
 
+	public EmbedBuilder getEmbedBichoVitual(EmbedBuilder embed, boolean adotar, BichoVirtual bichoVirtual) {
+		
+		if(adotar){
+			embed.addField("ADOTANTO UM NOVO AMIGO", "CUIDA BEM DELE");
+		}
+		
+		//ser tiver mostra o pet
+		embed.addField("NOME:",bichoVirtual.getNome());
+		embed.addInlineField("VIDA", "10/10?");
+		// TODO esquema para pegar as coisa do bicho, provalvemente dentro da propria classe dele
+		embed.setImage("https://media.discordapp.net/attachments/834243996096266311/864999834708738078/slim.gif");
+		
+		return embed;	
+	}
+	
 	public void executarProcedureStatus() {
 		logger.info("INICIANDO CRITICA DE STATUS {}","POR HORA");
 		
@@ -35,23 +45,18 @@ public class BichoVirtualController {
 		logger.info("FINALIZANDO CRITICA DE STATUS {}","POR HORA");
 	}
 	
-	public BichoVirtual verificarBicho(Usuario usuario,EmbedBuilder embed) {
+	public BichoVirtual verificarBicho(Usuario usuario) {
 		
 		BichoVirtual bichoVirtual = bichoVirtualDAO.buscarBichoAtivo(usuario);
 		
 		if(bichoVirtual != null) {
-			embed.addField("NOME:",bichoVirtual.getNome());
-			embed.addInlineField("VIDA", "10/10?");
-			
-			embed.setImage("https://media.discordapp.net/attachments/828779647146786856/864307122559909919/SlimePreview.png");
-			
 			return bichoVirtual;
 		}
 		
 		return null;
 	}
 	
-	public void adotarBicho(Usuario usuario, String nome) {
+	public BichoVirtual adotarBicho(Usuario usuario, String nome) throws Exception {
 		logger.info("Iniciando operacao adotarBicho para o USUARIO {}",usuario.getUsuario());
 		try {
 			BichoVirtual bichoVirtual = new BichoVirtual();
@@ -63,9 +68,11 @@ public class BichoVirtualController {
 			bichoVirtual.setStatus('1');
 			bichoVirtualDAO.save(bichoVirtual);
 			
+			return bichoVirtual;
 		} catch (Exception e) {
 			logger.error("ACONTECEU UM ERRO DURANTE O PROCESSAMENTO {}",e.getMessage());
 			e.printStackTrace();
+			throw new Exception();
 		}finally {
 			logger.info("FINALIZANDO operacao adotarBicho para o USUARIO {}",usuario.getUsuario());
 		}

@@ -7,6 +7,8 @@ SELECT DISTINCT TABLE_NAME, CONCAT('select * from ',TABLE_SCHEMA, '.',TABLE_NAME
 create database Javagotchi;
 create database JavagotchiDEV;
 
+use Javagotchi;
+
 grant all on Javagotchi to javagotchi;
 grant all on JavagotchiDEV to javagotchi;
 
@@ -20,3 +22,9 @@ select * from Javagotchi.TBOD_REGISTRO;
 
 select * from Javagotchi.TBOD_USUARIO;
 select * from Javagotchi.TBOD_BICHO_VIRTUAL;
+
+
+SET SQL_SAFE_UPDATES = 0;
+
+delete from Javagotchi.TBOD_BICHO_VIRTUAL;
+

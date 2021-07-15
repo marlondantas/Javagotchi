@@ -1,5 +1,6 @@
 package br.com.luaazul.javagotchi.controller;
 
+
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.listener.message.MessageCreateListener;
@@ -26,6 +27,4 @@ public class DiscordService {
 	public DiscordApi getClient() {
 		return this.client;
 	}
-	
-	
 }

@@ -35,6 +35,9 @@ public class Registro {
 	@Column(name = "CD_STATUS")
 	private int status;
 	
+	@Column(name = "CD_DISCORD_MENSAGEM")
+	private String codigoMensagem;
+	
 	@Column(name = "DS_RESPONSE")
 	private String response;
 	@Column(name = "DS_REQUEST")
@@ -61,6 +64,15 @@ public class Registro {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	
+	public String getCodigoMensagem() {
+		return codigoMensagem;
+	}
+
+	public void setCodigoMensagem(String codigoMensagem) {
+		this.codigoMensagem = codigoMensagem;
 	}
 
 	public Date getDataRegistro() {

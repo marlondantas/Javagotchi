@@ -2,8 +2,6 @@ package br.com.luaazul.javagotchi.controller.model;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import javax.persistence.EntityManager;
-import java.text.MessageFormat;
-
 
 import br.com.luaazul.javagotchi.model.Usuario;
 import br.com.luaazul.javagotchi.dao.model.UsuarioDAO;
@@ -16,15 +14,13 @@ public class UsuarioController {
 		usuarioDAO = new UsuarioDAO();
 	}
 
-	public Usuario verificarUsuario(String idUsuario, String idServidor,EmbedBuilder embed) {
+	public Usuario verificarUsuarioServidor(String idUsuario, String idServidor) {
 		
 		Usuario usuario = verificarUsuario(idUsuario, idServidor);
 		
 		if(usuario != null) {
-			embed.addField("Dono:",MessageFormat.format("<@{0}>",idUsuario) );
+			usuario.setServidor(idServidor);
 			return usuario;
-		} else {
-			embed.addField(":thinking:","Você ainda não faz parte da brincadeira\nUse o comando *!!adopt <nome>* para começar");
 		}
 		
 		return null;

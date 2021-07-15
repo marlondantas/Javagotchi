@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
-import org.slf4j.LoggerFactory;
+import org.javacord.api.entity.message.MessageBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,12 +12,11 @@ import org.slf4j.LoggerFactory;
 import br.com.luaazul.javagotchi.view.AbstractOperacao;
 import br.com.luaazul.javagotchi.controller.model.UsuarioController;
 import br.com.luaazul.javagotchi.controller.javagotchi.BichoVirtualController;
-import br.com.luaazul.javagotchi.controller.model.RegistroController;
-import br.com.luaazul.javagotchi.model.Registro;
 import br.com.luaazul.javagotchi.model.Usuario;
 import br.com.luaazul.javagotchi.model.tamagotchi.BichoVirtual;
 import br.com.luaazul.javagotchi.util.exception.UsuarioNaoExiste;
 import br.com.luaazul.javagotchi.util.exception.UsuarioNaoTemBichoVitual;
+import br.com.luaazul.javagotchi.controller.MessageController;
 
 public class InfoOperacao extends AbstractOperacao {
 
@@ -28,39 +27,33 @@ public class InfoOperacao extends AbstractOperacao {
 	BichoVirtualController bichoVirtualController = new BichoVirtualController();
 
 	@Override
-	public void execute(MessageCreateEvent event, String[] arrayParametros) throws UsuarioNaoExiste, UsuarioNaoTemBichoVitual, Exception {
+	public MessageBuilder execute(MessageCreateEvent event, String[] arrayParametros) throws UsuarioNaoExiste, UsuarioNaoTemBichoVitual, Exception {
 		
-		EmbedBuilder embed = new EmbedBuilder() 
-				.setTitle("Info: Bicho Virtual")
-			    .setFooter("Bot by Mar@MoonBlue")
-			    .setColor(Color.MAGENTA);
+		MessageBuilder mensagem = new MessageBuilder();
 		
-		try {
-			//verifica o usuario (existe ou nao)
-			Usuario usuarioExiste = usuarioController.verificarUsuario(event.getMessageAuthor().getIdAsString(), event.getServer().get().getIdAsString(),embed);
-			
-			if(usuarioExiste == null){
-				event.getMessage().reply(embed);
-				throw new UsuarioNaoExiste();
-			}
-	
-			//verifica se ele tem pet
-			BichoVirtual bichoVirtual = bichoVirtualController.verificarBicho(usuarioExiste,embed);
-			
-			//se nao tiver mostra o pet
-			if(bichoVirtual == null){
-				event.getMessage().reply(embed);
-				throw new UsuarioNaoTemBichoVitual();
-			}
-			
-			//ser tiver mostra o pet			
-			event.getMessage().reply(embed);
-			
-		} catch (Exception e) {
-			logger.error("ERRO: {}",e.getMessage());
-			e.printStackTrace();
-			throw new Exception(e);
+		EmbedBuilder embed = MessageController.getEmbed("Info: Bicho Virtual", Color.MAGENTA); 
+		//verifica o usuario (existe ou nao)
+		Usuario usuarioExiste = usuarioController.verificarUsuarioServidor(event.getMessageAuthor().getIdAsString(), event.getServer().get().getIdAsString());
+		
+		if(usuarioExiste == null){
+			throw new UsuarioNaoExiste();
 		}
+
+		embed.addField("DONO",MessageController.getCitarUsuario(usuarioExiste.getUsuario()));
+		
+		//verifica se ele tem pet
+		BichoVirtual bichoVirtual = bichoVirtualController.verificarBicho(usuarioExiste);
+		
+		//se nao tiver mostra o pet
+		if(bichoVirtual == null){
+			throw new UsuarioNaoTemBichoVitual();
+		}
+		
+		embed = bichoVirtualController.getEmbedBichoVitual(embed, false, bichoVirtual);
+		
+		mensagem.setEmbed(embed);
+		
+		return mensagem;
 	}
 	
 }

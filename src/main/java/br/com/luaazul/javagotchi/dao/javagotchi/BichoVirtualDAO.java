@@ -1,6 +1,5 @@
 package br.com.luaazul.javagotchi.dao.javagotchi;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -10,13 +9,13 @@ import br.com.luaazul.javagotchi.model.tamagotchi.BichoVirtual;
 
 public class BichoVirtualDAO extends AbstractDAO<Integer,BichoVirtual>{
 
-	private final static String BUSCAR_BICHO_HASH_ATIVO= "SELECT BICHO FROM BichoVirtual BICHO WHERE BICHO.usuario = :DS_USUARIO and  BICHO.servidor =:DS_SERVIDOR AND BICHO.status = '1' ";
+	private final static String BUSCAR_BICHO_HASH_ATIVO= "SELECT BICHO FROM BichoVirtual BICHO WHERE BICHO.usuario =:DS_USUARIO and  BICHO.servidor =:DS_SERVIDOR AND BICHO.status = '1' ";
 	
 	public BichoVirtualDAO() {
 	}
 
 	public BichoVirtual buscarBichoAtivo(Usuario usuario) {
-		
+		entityManager.clear();
 		Query query = entityManager.createQuery(BUSCAR_BICHO_HASH_ATIVO, BichoVirtual.class);
 		
 		query.setParameter("DS_USUARIO", usuario.getUsuario());

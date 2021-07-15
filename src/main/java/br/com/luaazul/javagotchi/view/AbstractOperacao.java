@@ -1,5 +1,6 @@
 package br.com.luaazul.javagotchi.view;
 
+import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
 
@@ -17,8 +18,8 @@ public abstract class AbstractOperacao implements MessageCreateListener{
 		//DO something
 	}
 	
-	public void execute(MessageCreateEvent event, String[] arrayParametros) throws UsuarioNaoExiste, UsuarioNaoTemBichoVitual, Exception {
-		//DO something
+	public MessageBuilder execute(MessageCreateEvent event, String[] arrayParametros) throws UsuarioNaoExiste, UsuarioNaoTemBichoVitual, Exception {
+		return null;
 	}
 	
 }
