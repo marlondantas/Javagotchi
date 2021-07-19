@@ -81,6 +81,7 @@ public abstract class AbstractDAO<PK, T> {
 	 * CAMADA SERVICE
 	 */
 	public void beginTransaction(){
+		this.entityManager.clear();
 		this.entityManager.getTransaction().begin();
     }
      
@@ -99,6 +100,9 @@ public abstract class AbstractDAO<PK, T> {
     	this.entityManager.getTransaction().rollback();
     }
      
+    public void clearCache() {
+    	this.entityManager.clear();
+    }
     
     public EntityManager getEntityManager(){
         return entityManager;

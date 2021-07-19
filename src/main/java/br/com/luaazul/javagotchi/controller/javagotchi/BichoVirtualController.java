@@ -2,6 +2,7 @@ package br.com.luaazul.javagotchi.controller.javagotchi;
 
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
+import java.text.MessageFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +30,13 @@ public class BichoVirtualController {
 		
 		//ser tiver mostra o pet
 		embed.addField("NOME:",bichoVirtual.getNome());
-		embed.addInlineField("VIDA", "10/10?");
+		
+		String status= "Vida: {0}/{1} Fome: {2}/{3}";
+		status = MessageFormat.format(status,bichoVirtual.getVida(),bichoVirtual.getVidaTotal(),bichoVirtual.getFome(),"0");
+		embed.addInlineField("Status:",status);
+		
 		// TODO esquema para pegar as coisa do bicho, provalvemente dentro da propria classe dele
-		embed.setImage("https://media.discordapp.net/attachments/834243996096266311/864999834708738078/slim.gif");
+		embed.setImage("https://cdn.discordapp.com/attachments/674061878313484318/866494986152837121/GatoGarconette2.gif");
 		
 		return embed;	
 	}
@@ -46,9 +51,7 @@ public class BichoVirtualController {
 	}
 	
 	public BichoVirtual verificarBicho(Usuario usuario) {
-		
 		BichoVirtual bichoVirtual = bichoVirtualDAO.buscarBichoAtivo(usuario);
-		
 		if(bichoVirtual != null) {
 			return bichoVirtual;
 		}
@@ -78,19 +81,8 @@ public class BichoVirtualController {
 		}
 	}
 	
-	public void alimentarBicho() {
-		
-	}
-
-	public void dormirBicho() {
-		
+	public BichoVirtualDAO getBichoVirtualDAO() {
+		return bichoVirtualDAO;
 	}
 	
-	public void brincarBicho() {
-		
-	}
-	
-	public void treinarBicho() {
-		
-	}
 }

@@ -44,6 +44,9 @@ public class BichoVirtual {
 	private float felicidade;
 	@Column(name = "VL_FOME")
 	private float fome;
+	@Column(name = "VL_LIMPEZA")
+	private float limpeza;
+	
 	
 	@Column(name = "VL_EX_PONTOS")
 	private float exPontos;
@@ -62,7 +65,65 @@ public class BichoVirtual {
 	}
 
 	
+	public BichoVirtual doFeed(String idItem) {
+		
+		this.setFome(getFome() + 30);
+		
+		if(this.getVida()+10 <this.getVidaTotal()) {
+			this.setVida(getVida() + 10);
+		}
+		this.setEnergia(this.getEnergia()  - 10);
+		this.setFelicidade(getFelicidade() + 20);
+		
+		return this;
+	}
 	
+	public BichoVirtual doSleep(String idItem) {
+		this.setFome(getFome() - 10);
+		if(this.getVida()+10 <this.getVidaTotal()) {
+			this.setVida(getVida() + 40);
+		}
+		this.setEnergia(this.getEnergia()  + 80);
+		this.setFelicidade(getFelicidade() + 20);
+		return this;
+	}
+	
+	public BichoVirtual doPlay(String idItem) {
+		this.setFome(getFome() - 20);
+//		if(this.getVida()+10 <this.getVidaTotal()) {
+//			this.setVida(getVida() + 10);
+//		}
+		this.setEnergia(this.getEnergia()  - 10);
+		this.setFelicidade(getFelicidade() + 40);
+		return this;
+	}
+	
+	public BichoVirtual doTrain(String idItem) {
+		this.setFome(getFome() - 30);
+//		if(this.getVida()+10 <this.getVidaTotal()) {
+//			this.setVida(getVida() + 10);
+//		}
+		this.setEnergia(this.getEnergia()  - 20);
+		this.setFelicidade(getFelicidade() - 20);
+		this.setExPontos(getExPontos()+20);
+		
+		return this;
+		
+	}
+	
+	public BichoVirtual doBath(String idItem) {
+		
+		this.setFome(getFome() - 10);
+//		if(this.getVida()+10 <this.getVidaTotal()) {
+//			this.setVida(getVida() + 10);
+//		}
+		this.setEnergia(this.getEnergia()  - 10);
+		this.setFelicidade(getFelicidade() + 30);
+		this.setLimpeza(100);
+		
+		return this;
+		
+	}
 	
 	public String getUsuario() {
 		return usuario;
@@ -76,6 +137,16 @@ public class BichoVirtual {
 	}
 
 
+
+
+	public float getLimpeza() {
+		return limpeza;
+	}
+
+
+	public void setLimpeza(float limpeza) {
+		this.limpeza = limpeza;
+	}
 
 
 	public String getServidor() {

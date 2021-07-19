@@ -15,7 +15,8 @@ public class BichoVirtualDAO extends AbstractDAO<Integer,BichoVirtual>{
 	}
 
 	public BichoVirtual buscarBichoAtivo(Usuario usuario) {
-		entityManager.clear();
+		this.entityManager.clear();
+		clearCache();
 		Query query = entityManager.createQuery(BUSCAR_BICHO_HASH_ATIVO, BichoVirtual.class);
 		
 		query.setParameter("DS_USUARIO", usuario.getUsuario());
@@ -25,6 +26,8 @@ public class BichoVirtualDAO extends AbstractDAO<Integer,BichoVirtual>{
 			return (BichoVirtual) query.getSingleResult();
 		} catch ( NoResultException nre ) {
 			return null;
+		}finally {
+			this.entityManager.clear();
 		}
 	}
 	

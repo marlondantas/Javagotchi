@@ -20,8 +20,13 @@ import br.com.luaazul.javagotchi.controller.model.RegistroController;
 import br.com.luaazul.javagotchi.controller.model.ServidorService;
 import br.com.luaazul.javagotchi.view.*;
 import br.com.luaazul.javagotchi.view.Operacao.AdoptOperacao;
+import br.com.luaazul.javagotchi.view.Operacao.BathOperacao;
+import br.com.luaazul.javagotchi.view.Operacao.FeedOperacao;
 import br.com.luaazul.javagotchi.view.Operacao.InfoOperacao;
+import br.com.luaazul.javagotchi.view.Operacao.PlayOperacao;
 import br.com.luaazul.javagotchi.view.Operacao.PrefixoOperacao;
+import br.com.luaazul.javagotchi.view.Operacao.SleepOperacao;
+import br.com.luaazul.javagotchi.view.Operacao.TrainOperacao;
 import br.com.luaazul.javagotchi.controller.MessageController;
 
 public class OperacaoService implements MessageCreateListener {
@@ -128,13 +133,13 @@ public class OperacaoService implements MessageCreateListener {
 		operacoes.put("adopt", new AdoptOperacao());
 
 		//TODO tabela de operacaoes
-		operacoes.put("feed", new AdoptOperacao());
-		operacoes.put("sleep", new AdoptOperacao());
-		operacoes.put("play", new AdoptOperacao());
-		operacoes.put("train", new AdoptOperacao());
-		operacoes.put("bath", new AdoptOperacao());
+		operacoes.put("feed", new FeedOperacao());
+		operacoes.put("sleep", new SleepOperacao());
+		operacoes.put("play", new PlayOperacao());
+		operacoes.put("train", new TrainOperacao());
+		operacoes.put("bath", new BathOperacao());
 		
-		// geral
+		//Geral
 		operacoes.put("prefixo", new PrefixoOperacao());
 
 		return operacoes;
