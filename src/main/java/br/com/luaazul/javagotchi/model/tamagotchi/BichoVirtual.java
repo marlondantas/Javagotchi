@@ -4,6 +4,7 @@ package br.com.luaazul.javagotchi.model.tamagotchi;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 public class BichoVirtual {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_PET")
 	private int id;
 	
@@ -57,8 +58,10 @@ public class BichoVirtual {
 	@Column(name = "CD_STATUS")
 	private char status;
 	
-	@Column(name = "CD_TIPO_BICHO")
-	private int tipoBicho;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CD_TIPO_BICHO")
+	private TipoBichoVirtual tipoBicho;
 	
 	public BichoVirtual(){
 		
@@ -177,14 +180,14 @@ public class BichoVirtual {
 
 
 
-	public int getTipoBicho() {
+	public TipoBichoVirtual getTipoBicho() {
 		return tipoBicho;
 	}
 
 
 
 
-	public void setTipoBicho(int tipoBicho) {
+	public void setTipoBicho(TipoBichoVirtual tipoBicho) {
 		this.tipoBicho = tipoBicho;
 	}
 

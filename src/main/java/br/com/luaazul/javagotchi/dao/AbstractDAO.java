@@ -15,6 +15,13 @@ public abstract class AbstractDAO<PK, T> {
 		this.entityManager.getTransaction().begin();
 	}
 	
+	protected AbstractDAO(EntityManager entityManager) {	
+		this.entityManager =entityManager;
+		if(!this.entityManager.getTransaction().isActive()) {
+			this.entityManager.getTransaction().begin();
+		}
+	}
+	
 	protected AbstractDAO(Class<T> persistedClass) {
 		this();
 	}
@@ -31,7 +38,7 @@ public abstract class AbstractDAO<PK, T> {
     }
  
 	
-    public void save(T entity) {
+    public void save(T entity) throws Exception {
     	try {
     		if(!this.entityManager.getTransaction().isActive()) {
     			this.entityManager.getTransaction().begin();
@@ -41,6 +48,7 @@ public abstract class AbstractDAO<PK, T> {
 		} catch (Exception e) {
 			this.entityManager.getTransaction().rollback();
 			e.printStackTrace();
+			throw new Exception();
 		}
     }
  
@@ -102,6 +110,7 @@ public abstract class AbstractDAO<PK, T> {
      
     public void clearCache() {
     	this.entityManager.clear();
+    	this.entityManager.getEntityManagerFactory().getCache().evictAll();
     }
     
     public EntityManager getEntityManager(){

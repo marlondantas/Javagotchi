@@ -8,8 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import br.com.luaazul.javagotchi.model.Usuario;
 import br.com.luaazul.javagotchi.model.tamagotchi.BichoVirtual;
-
+import br.com.luaazul.javagotchi.model.tamagotchi.TipoBichoVirtual;
 import br.com.luaazul.javagotchi.dao.javagotchi.BichoVirtualDAO;
+import br.com.luaazul.javagotchi.dao.javagotchi.TipoBichoVirtualDAO;
 
 public class BichoVirtualController {
 	
@@ -17,9 +18,12 @@ public class BichoVirtualController {
 	
 	private BichoVirtualDAO bichoVirtualDAO;
 	
+	private TipoBichoVirtualDAO tipoBichoVirtualDAO;
+	
 	public BichoVirtualController() {
 		super();
 		bichoVirtualDAO = new BichoVirtualDAO();
+		tipoBichoVirtualDAO = new TipoBichoVirtualDAO(bichoVirtualDAO.getEntityManager());
 	}
 
 	public EmbedBuilder getEmbedBichoVitual(EmbedBuilder embed, boolean adotar, BichoVirtual bichoVirtual) {
@@ -69,6 +73,13 @@ public class BichoVirtualController {
 			bichoVirtual.setServidor(usuario.getServidor());
 			bichoVirtual.setUsuario(usuario.getUsuario());
 			bichoVirtual.setStatus('1');
+			
+			TipoBichoVirtual tipoBichoVirtual = tipoBichoVirtualDAO.getById(1);
+			
+			bichoVirtual.setTipoBicho(tipoBichoVirtual);
+			
+			//busca o tipo do bicho
+			
 			bichoVirtualDAO.save(bichoVirtual);
 			
 			return bichoVirtual;

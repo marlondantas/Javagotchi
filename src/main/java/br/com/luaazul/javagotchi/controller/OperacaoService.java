@@ -116,7 +116,11 @@ public class OperacaoService implements MessageCreateListener {
 
 			finally {
 				enviarMensagem(registro, messageBuilder, event);
-				registroController.getRegistroDAO().save(registro);
+				try {
+					registroController.getRegistroDAO().save(registro);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			logger.info("Operacao Finalizada");
 			// TODO essa classe envia a mensagem depois do tratamento e das conexao muito

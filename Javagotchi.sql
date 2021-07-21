@@ -19,18 +19,16 @@ select * from Javagotchi.TBOD_REGISTRO;
 select * from Javagotchi.TBOD_USUARIO;
 select * from Javagotchi.TBOD_BICHO_VIRTUAL;
 
-update Javagotchi.TBOD_BICHO_VIRTUAL set VL_VIDA_TOTAL = 50;
-update Javagotchi.TBOD_BICHO_VIRTUAL set VL_VIDA = 50;
-
-
-
+select * from Javagotchi.TBOD_TIPO_BICHO;
+select * from TBOD_ESTADO_TIPO_BICHO;
 
 SET SQL_SAFE_UPDATES = 0;
 
 
+'setup';
 
- select bichovirtu0_.ID_PET as id_pet1_0_, bichovirtu0_.VL_ENERGIA as vl_energ2_0_, bichovirtu0_.VL_EX_PONTOS as vl_ex_po3_0_, bichovirtu0_.VL_FELICIDADE as vl_felic4_0_, bichovirtu0_.VL_FOME as vl_fome5_0_, bichovirtu0_.VL_LIMPEZA as vl_limpe6_0_, bichovirtu0_.DS_NOME as ds_nome7_0_, bichovirtu0_.DS_SERVIDOR as ds_servi8_0_, bichovirtu0_.CD_STATUS as cd_statu9_0_, bichovirtu0_.CD_TIPO_BICHO as cd_tipo10_0_, bichovirtu0_.DS_USUARIO as ds_usua11_0_, bichovirtu0_.VL_VIDA as vl_vida12_0_, bichovirtu0_.VL_VIDA_TOTAL as vl_vida13_0_, bichovirtu0_.CD_VIVO as cd_vivo14_0_ 
-  from Javagotchi.TBOD_BICHO_VIRTUAL bichovirtu0_ where bichovirtu0_.CD_STATUS='1';
+insert into Javagotchi.TBOD_TIPO_BICHO(ds_nome_raca) VALUES("Gatito de copos");
 
-delete from Javagotchi.TBOD_BICHO_VIRTUAL;
+insert into Javagotchi.TBOD_ESTADO_TIPO_BICHO value ('1','0','https://media.discordapp.net/attachments/674061878313484318/866494986152837121/GatoGarconette2.gif');
 
+ insert into TBOD_BICHO_VIRTUAL (VL_ENERGIA, VL_EX_PONTOS, VL_FELICIDADE, VL_FOME, VL_LIMPEZA, DS_NOME, DS_SERVIDOR, CD_STATUS, CD_TIPO_BICHO, DS_USUARIO, VL_VIDA, VL_VIDA_TOTAL, CD_VIVO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
