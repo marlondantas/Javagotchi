@@ -56,8 +56,7 @@ public class BichoVirtual {
 	private boolean vivo;
 	
 	@Column(name = "CD_STATUS")
-	private char status;
-	
+	private int status;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CD_TIPO_BICHO")
@@ -156,24 +155,18 @@ public class BichoVirtual {
 		return servidor;
 	}
 
-
-
-
 	public void setServidor(String servidor) {
 		this.servidor = servidor;
 	}
 
-
-
-
-	public char getStatus() {
-		return status;
+	public int getStatus() {
+		return this.status;
 	}
 
 
 
 
-	public void setStatus(char status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
@@ -280,6 +273,18 @@ public class BichoVirtual {
 
 	public void setVivo(boolean vivo) {
 		this.vivo = vivo;
+	}
+
+
+	public void adotarTipoBicho(TipoBichoVirtual tipoBichoVirtual) {
+		this.setTipoBicho(tipoBichoVirtual);
+
+		this.setFelicidade(tipoBichoVirtual.getFelicidadeMaxima());
+		this.setFome(tipoBichoVirtual.getFomeMaxima());
+		this.setEnergia(tipoBichoVirtual.getEnergiaMaxima());
+		this.setVidaTotal(tipoBichoVirtual.getVidaMaxima());
+		this.setVida(tipoBichoVirtual.getVidaMaxima());
+		
 	}
 	
 	

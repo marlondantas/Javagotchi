@@ -28,22 +28,22 @@ public class TipoBichoVirtual {
 	@Column( name="DS_NOME_RACA")
 	private String nomeRaca;
 	
-	@Column(nullable=true,name = "VL_FOME_MAXIMA",columnDefinition = "integer default 25")
+	@Column(nullable=true,name = "VL_FOME_MAXIMA",columnDefinition = "integer default 100")
 	private Integer fomeMaxima;
 	@Column(nullable=true,name = "VL_ENERGIA_MAXIMA",columnDefinition = "integer default 100")
 	private Integer energiaMaxima;
 	@Column(nullable=true,name = "VL_FELICIDADE_MAXIMA",columnDefinition = "integer default 100")
 	private Integer felicidadeMaxima;
-	@Column(nullable=true,name = "VL_VIDA_MAXIMA",columnDefinition = "integer default 100")
+	@Column(nullable=true,name = "VL_VIDA_MAXIMA",columnDefinition = "integer default 25")
 	private Integer vidafomeMaxima;
 	
-	@Column(nullable=true,name = "VL_FOME_PERCA",columnDefinition = "integer default 100")
+	@Column(nullable=true,name = "VL_FOME_PERCA",columnDefinition = "integer default 2")
 	private Integer fomePercaHora;
-	@Column(nullable=true,name = "VL_ENERGIA_PERCA",columnDefinition = "integer default 100")
+	@Column(nullable=true,name = "VL_ENERGIA_PERCA",columnDefinition = "integer default 2")
 	private Integer energiaPercaHora;
-	@Column(nullable=true,name = "VL_FELICIDADE_PERCA",columnDefinition = "integer default 100")
+	@Column(nullable=true,name = "VL_FELICIDADE_PERCA",columnDefinition = "integer default 2")
 	private Integer felicidadePercaHora;
-	@Column(nullable=true,name = "VL_VIDA_PERCA",columnDefinition = "integer default 100")
+	@Column(nullable=true,name = "VL_VIDA_PERCA",columnDefinition = "integer default 0")
 	private Integer vidaPercaHora;
 
 	@OneToMany(fetch = FetchType.LAZY)
@@ -90,11 +90,11 @@ public class TipoBichoVirtual {
 		this.felicidadeMaxima = felicidadeMaxima;
 	}
 
-	public int getVidafomeMaxima() {
+	public int getVidaMaxima() {
 		return vidafomeMaxima;
 	}
 
-	public void setVidafomeMaxima(int vidafomeMaxima) {
+	public void setVidaMaxima(int vidafomeMaxima) {
 		this.vidafomeMaxima = vidafomeMaxima;
 	}
 

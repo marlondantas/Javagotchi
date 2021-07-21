@@ -36,11 +36,14 @@ public class BichoVirtualController {
 		embed.addField("NOME:",bichoVirtual.getNome());
 		
 		String status= "Vida: {0}/{1} Fome: {2}/{3}";
-		status = MessageFormat.format(status,bichoVirtual.getVida(),bichoVirtual.getVidaTotal(),bichoVirtual.getFome(),"0");
+		status = MessageFormat.format(status,bichoVirtual.getVida(),bichoVirtual.getTipoBicho().getVidaMaxima(),bichoVirtual.getFome(),bichoVirtual.getTipoBicho().getFomeMaxima());
+		
 		embed.addInlineField("Status:",status);
 		
 		// TODO esquema para pegar as coisa do bicho, provalvemente dentro da propria classe dele
-		embed.setImage("https://cdn.discordapp.com/attachments/674061878313484318/866494986152837121/GatoGarconette2.gif");
+		int estadoAtual = bichoVirtual.getStatus();
+		
+		embed.setImage(bichoVirtual.getTipoBicho().getImgsEstados().get(estadoAtual).getUrl());
 		
 		return embed;	
 	}
@@ -69,14 +72,14 @@ public class BichoVirtualController {
 			BichoVirtual bichoVirtual = new BichoVirtual();
 
 			bichoVirtual.setNome(nome);
-			bichoVirtual.setFelicidade(100f);
 			bichoVirtual.setServidor(usuario.getServidor());
 			bichoVirtual.setUsuario(usuario.getUsuario());
-			bichoVirtual.setStatus('1');
+			
+			int statusNormal = 0;
+			bichoVirtual.setStatus(statusNormal);
 			
 			TipoBichoVirtual tipoBichoVirtual = tipoBichoVirtualDAO.getById(1);
-			
-			bichoVirtual.setTipoBicho(tipoBichoVirtual);
+			bichoVirtual.adotarTipoBicho(tipoBichoVirtual);
 			
 			//busca o tipo do bicho
 			

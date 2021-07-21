@@ -9,15 +9,12 @@ import br.com.luaazul.javagotchi.model.tamagotchi.BichoVirtual;
 
 public class BichoVirtualDAO extends AbstractDAO<Integer,BichoVirtual>{
 
-	private final static String BUSCAR_BICHO_HASH_ATIVO= "SELECT BICHO FROM BichoVirtual BICHO WHERE BICHO.usuario =:DS_USUARIO and  BICHO.servidor =:DS_SERVIDOR AND BICHO.status = '1' ";
+	private final static String BUSCAR_BICHO_HASH_ATIVO= "SELECT BICHO FROM BichoVirtual BICHO WHERE BICHO.usuario =:DS_USUARIO and  BICHO.servidor =:DS_SERVIDOR AND BICHO.vivo = '0' ";
 	
 	public BichoVirtualDAO() {
 	}
 
 	public BichoVirtual buscarBichoAtivo(Usuario usuario) {
-		this.entityManager.getEntityManagerFactory().getCache().evictAll();
-		this.entityManager.flush();
-		clearCache();
 		
 		Query query = entityManager.createQuery(BUSCAR_BICHO_HASH_ATIVO, BichoVirtual.class);
 		

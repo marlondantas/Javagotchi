@@ -107,8 +107,8 @@ public class OperacaoService implements MessageCreateListener {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				logger.error("Operacao Finalizada COM ERRO GENERICO {}", e.getMessage());
-				registro.setResponse(e.getMessage());
+				logger.error("Operacao Finalizada COM ERRO GENERICO {} {}", e.getMessage(),e.getStackTrace().toString());
+				registro.setResponse(e.getStackTrace().toString());
 				registro.setStatus(4); // erro generico
 
 				messageBuilder.append("¯\\_(ツ)_/¯");

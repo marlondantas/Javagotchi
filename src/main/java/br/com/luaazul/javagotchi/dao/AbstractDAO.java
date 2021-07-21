@@ -11,8 +11,11 @@ public abstract class AbstractDAO<PK, T> {
 	public EntityManager entityManager;
 	
 	protected AbstractDAO() {	
-		this.entityManager = GeradorManagerFactory.getEntityManager();
-		this.entityManager.getTransaction().begin();
+//		this.entityManager = GeradorManagerFactory.getEntityManager();
+		this.entityManager = GeradorManagerFactory.entityManager;
+		if(!this.entityManager.getTransaction().isActive()) {
+			this.entityManager.getTransaction().begin();
+		}
 	}
 	
 	protected AbstractDAO(EntityManager entityManager) {	
